@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+
+ <head>
+  <meta charset="utf-8">
+  <style>
+  body{
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height:800px;
+    background-color: #a2e794;
+  }
+
+  h1, p{
+    margin-left: 50px;
+  }
+    #field {
+      width: 800px;
+      height: 550px;
+      border: 20px solid #2d7f44;
+      background: url('meadow-game.jpg') no-repeat;
+      position: relative;
+      margin: 30px auto;
+      overflow: hidden;
+    }
+
+    #butterfly {
+      position: absolute;
+      top: 30%;
+      left: 39%;
+      transition-property: left, top;
+      transition-duration: 500ms;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div id="field">
+    <img src="butterfly-game.png" id="butterfly">
+  </div>
+
+<script>
+   var field = document.getElementById('field');
+    var bfl = document.getElementById('butterfly');
+
+
+    field.onclick = function(event) {
+
+
+      var fieldCoords = this.getBoundingClientRect();
+
+
+      var fieldInnerCoords = {
+        top: fieldCoords.top + field.clientTop,
+        left: fieldCoords.left + field.clientLeft
+      };
+
+
+      var bflCoords = {
+        top: event.clientY - fieldInnerCoords.top - bfl.clientHeight / 2,
+        left: event.clientX - fieldInnerCoords.left - bfl.clientWidth / 2
+      };
+
+
+      if (bflCoords.top < 0) bflCoords.top = 0;
+
+
+      if (bflCoords.left < 0) bflCoords.left = 0;
+
+
+
+      if (bflCoords.left + bfl.clientWidth > field.clientWidth) {
+        bflCoords.left = field.clientWidth - bfl.clientWidth;
+      }
+
+
+      if (bflCoords.top + bfl.clientHeight > field.clientHeight) {
+        bflCoords.top = field.clientHeight - bfl.clientHeight;
+      }
+
+      bfl.style.left = bflCoords.left + 'px';
+      bfl.style.top = bflCoords.top + 'px';
+    }
+
+</script>
+</body>
+
+
+</html>
